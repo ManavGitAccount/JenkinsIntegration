@@ -58,11 +58,13 @@ class StringUtilsTest {
     @ValueSource(strings = {"   ", "\t", "\n"})
     void testIsBlank(String input) {
         assertTrue(StringUtils.isBlank(input));
+        System.out.println(Thread.currentThread().getName() + " -> testAdd");
     }
 
     @Test
     @DisplayName("isBlank returns false for real content")
     void testIsNotBlank() {
         assertFalse(StringUtils.isBlank("hello"));
+        System.out.println(Thread.currentThread().getName() + " -> testAdd");
     }
 }

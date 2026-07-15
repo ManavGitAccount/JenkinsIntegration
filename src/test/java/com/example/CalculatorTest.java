@@ -57,6 +57,7 @@ class CalculatorTest {
     @DisplayName("multiplies correctly")
     void testMultiply() {
         assertEquals(21, calculator.multiply(7, 3));
+        System.out.println(Thread.currentThread().getName() + " -> testAdd");
     }
 
     @Nested
@@ -67,6 +68,7 @@ class CalculatorTest {
         @DisplayName("divides evenly")
         void testDivide() {
             assertEquals(2.5, calculator.divide(5, 2), 0.0001);
+            System.out.println(Thread.currentThread().getName() + " -> testAdd");
         }
 
         @Test
@@ -86,5 +88,6 @@ class CalculatorTest {
     void testIsEven() {
         assertTrue(calculator.isEven(4));
         assertFalse(calculator.isEven(7));
+        System.out.println(Thread.currentThread().getName() + " -> testAdd");
     }
 }
