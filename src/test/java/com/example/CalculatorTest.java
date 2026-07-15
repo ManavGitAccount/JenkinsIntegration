@@ -89,5 +89,6 @@ class CalculatorTest {
         assertTrue(calculator.isEven(4));
         assertFalse(calculator.isEven(7));
         System.out.println(Thread.currentThread().getName() + " -> testAdd");
+        //
     }
 }
