@@ -4,8 +4,9 @@ pipeline {
     triggers {
         pollSCM('H/5 * * * *')
     }
+
     tools {
-        maven 'Maven'   // must match the name you configured in Manage Jenkins -> Tools
+        maven 'Maven'
     }
 
     stages {
@@ -20,6 +21,21 @@ pipeline {
                 bat 'mvn clean test'
             }
         }
+
+        stage('Package') {
+            steps {
+                bat 'mvn package -DskipTests'
+                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+            }
+        }
+
+        stage('Deploy to Staging') {
+            steps {
+                input message: 'Tests passed and artifact built. Deploy to staging?'
+                echo 'Deploying to staging... (simulated)'
+                echo "Deployed build #${env.BUILD_NUMBER} to staging."
+            }
+        }
     }
 
     post {
@@ -28,3 +44,4 @@ pipeline {
         }
     }
 }
+
