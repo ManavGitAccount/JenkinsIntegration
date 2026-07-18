@@ -10,33 +10,34 @@ on:
 
 jobs:
   build-and-test:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false   # one failing combo won't cancel the others
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        java: [17, 21]
+
+    runs-on: ${{ matrix.os }}
+    name: Test on ${{ matrix.os }} / JDK ${{ matrix.java }}
 
     steps:
-      # 1. Pull your repo code onto the runner
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. Install Java 17 (matches maven.compiler.source/target in pom.xml)
-      - name: Set up JDK 17
+      - name: Set up JDK ${{ matrix.java }}
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '17'
-          cache: 'maven'   # caches ~/.m2 so later runs are much faster
+          java-version: ${{ matrix.java }}
+          cache: 'maven'
 
-      # 3. Equivalent of your Jenkinsfile "Build & Test" stage
-      #    (Linux runner, so 'mvn' instead of 'bat mvn')
       - name: Build & run tests
         run: mvn clean test
 
-      # 4. Upload the Surefire test reports so you can inspect them
-      #    even when tests fail (if: always() keeps this step running on failure)
       - name: Upload test reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: surefire-reports
+          name: surefire-reports-${{ matrix.os }}-jdk${{ matrix.java }}
           path: target/surefire-reports/
 
   package:
