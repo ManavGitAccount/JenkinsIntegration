@@ -34,7 +34,7 @@ class CalculatorTest {
     @DisplayName("adds two positive numbers")
     void testAdd() {
         assertEquals(5, calculator.add(2, 3));
-        assertEquals(7, calculator.add(1,2));
+        assertEquals(7, calculator.add(5,2));
     }
 
     @Test
