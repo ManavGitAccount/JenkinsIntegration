@@ -1,4 +1,6 @@
 JUnit 5 Sample Project
+# JenkinsIntegration
+[![CI](https://github.com/ManavGitAccount/JenkinsIntegration/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/ManavGitAccount/JenkinsIntegration/actions/workflows/ci.yml)
 
 A minimal Maven project demonstrating JUnit 5 (Jupiter) testing.
 
