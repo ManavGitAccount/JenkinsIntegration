@@ -68,3 +68,21 @@ jobs:
         with:
           name: JenkinsIntegration-jar
           path: target/*.jar
+
+  deploy-staging:
+    needs: package
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    environment: staging
+
+    steps:
+      - name: Download jar from package job
+        uses: actions/download-artifact@v4
+        with:
+          name: JenkinsIntegration-jar
+
+      - name: Deploy to staging (simulated)
+        run: |
+          echo "Deploying to staging... (simulated)"
+          echo "Deployed build #${{ github.run_number }} to staging."
+          ls -l *.jar
